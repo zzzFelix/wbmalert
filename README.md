@@ -1,1 +1,2 @@
 # wbm-alert
+This script makes a request to `https://www.wbm.de/wohnungen-berlin/angebote/` every 120 seconds. If the websites says anything other than "LEIDER HABEN WIR DERZEIT KEINE VERFÜGBAREN WOHNUNGSANGEBOTE" or "403 Zugriff verweigert", a sound will be played.
