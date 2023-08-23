@@ -14,7 +14,6 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-var degewo = ""
 var interval = 120
 var initialized = false
 
