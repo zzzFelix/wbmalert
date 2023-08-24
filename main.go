@@ -17,7 +17,7 @@ import (
 )
 
 // Interval in seconds
-var interval = 120
+var interval = 90
 var websites = []Website{
 	{"WBM", "https://www.wbm.de/wohnungen-berlin/angebote/", ""},
 	{"Gewobag", "https://www.gewobag.de/fuer-mieter-und-mietinteressenten/mietangebote/?bezirke%5B%5D=charlottenburg-wilmersdorf-charlottenburg&bezirke%5B%5D=friedrichshain-kreuzberg&bezirke%5B%5D=friedrichshain-kreuzberg-friedrichshain&bezirke%5B%5D=friedrichshain-kreuzberg-kreuzberg&bezirke%5B%5D=pankow&bezirke%5B%5D=pankow-prenzlauer-berg&bezirke%5B%5D=tempelhof-schoeneberg-schoeneberg&objekttyp%5B%5D=wohnung&gesamtmiete_von=&gesamtmiete_bis=&gesamtflaeche_von=&gesamtflaeche_bis=&zimmer_von=&zimmer_bis=&keinwbs=1&sort-by=recent/", ""},
@@ -42,8 +42,8 @@ func main() {
 
 func initializeWebsites() {
 	for i := 0; i < len(websites); i++ {
-		fmt.Println("Created initial snapshot for " + websites[i].name)
 		websites[i] = createInitialSnapshot(websites[i])
+		fmt.Println("Created initial snapshot for " + websites[i].name)
 	}
 	goToSleep()
 }
@@ -80,6 +80,7 @@ func removeAllWhitespace(str string) string {
 
 func checkWebsite(website Website) Website {
 	content := getWebsiteAsString(website)
+
 	if website.snapshot != content {
 		fmt.Println("========= " + website.name + " =========")
 		fmt.Println("Content changed: " + website.url)
@@ -89,6 +90,7 @@ func checkWebsite(website Website) Website {
 	} else {
 		fmt.Println("No changes for " + website.name)
 	}
+
 	return website
 }
 
