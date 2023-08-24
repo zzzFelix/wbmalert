@@ -14,7 +14,10 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-var interval = 90
+// Interval in seconds
+var interval = 240
+
+// Do not change
 var initialized = false
 var gewobag = ""
 var wbm = ""
