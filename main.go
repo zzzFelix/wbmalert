@@ -16,8 +16,7 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 )
 
-// Interval in seconds
-var interval = 90
+var interval = 90 // in seconds
 var websites = []Website{
 	{"WBM", "https://www.wbm.de/wohnungen-berlin/angebote/", ""},
 	{"Gewobag", "https://www.gewobag.de/fuer-mieter-und-mietinteressenten/mietangebote/?bezirke%5B%5D=charlottenburg-wilmersdorf-charlottenburg&bezirke%5B%5D=friedrichshain-kreuzberg&bezirke%5B%5D=friedrichshain-kreuzberg-friedrichshain&bezirke%5B%5D=friedrichshain-kreuzberg-kreuzberg&bezirke%5B%5D=pankow&bezirke%5B%5D=pankow-prenzlauer-berg&bezirke%5B%5D=tempelhof-schoeneberg-schoeneberg&objekttyp%5B%5D=wohnung&gesamtmiete_von=&gesamtmiete_bis=&gesamtflaeche_von=&gesamtflaeche_bis=&zimmer_von=&zimmer_bis=&keinwbs=1&sort-by=recent/", ""},
