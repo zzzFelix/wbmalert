@@ -89,7 +89,7 @@ func removeAllWhitespace(str string) string {
 
 func checkWebsite(website Website) Website {
 	content, error := getWebsiteAsString(website)
-	if error == nil {
+	if error != nil {
 		return website
 	}
 	if website.snapshot != content {
