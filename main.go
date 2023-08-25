@@ -57,7 +57,7 @@ func initializeWebsites() {
 
 func createInitialSnapshot(website Website) Website {
 	content, error := getWebsiteAsString(website)
-	if error != nil {
+	if error == nil {
 		website.snapshot = content
 	}
 	return website
