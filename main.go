@@ -16,10 +16,16 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 )
 
-var interval = 90 // in seconds
+var interval = 45 // in seconds
 var websites = []Website{
 	{"WBM", "https://www.wbm.de/wohnungen-berlin/angebote/", ""},
+	{"Gesobau", "https://www.gesobau.de/mieten/wohnungssuche/", ""},
+	{"Stadt und Land", "https://www.stadtundland.de/immobiliensuche.php?form=stadtundland-expose-search-1.form&sp%3Acategories%5B3352%5D%5B%5D=-&sp%3Acategories%5B3352%5D%5B%5D=__last__&sp%3AroomsFrom%5B%5D=&sp%3AroomsTo%5B%5D=&sp%3ArentPriceFrom%5B%5D=&sp%3ArentPriceTo%5B%5D=&sp%3AareaFrom%5B%5D=&sp%3AareaTo%5B%5D=&sp%3Afeature%5B%5D=__last__&action=submit", ""},
+	{"Degewo", "https://immosuche.degewo.de/de/search?size=10&page=1&property_type_id=1&categories%5B%5D=1&lat=&lon=&area=&address%5Bstreet%5D=&address%5Bcity%5D=&address%5Bzipcode%5D=&address%5Bdistrict%5D=&address%5Braw%5D=&district=&property_number=&price_switch=true&price_radio=null&price_from=&price_to=&qm_radio=null&qm_from=&qm_to=&rooms_radio=null&rooms_from=&rooms_to=&wbs_required=false&order=rent_total_without_vat_asc", ""},
 	{"Gewobag", "https://www.gewobag.de/fuer-mieter-und-mietinteressenten/mietangebote/?bezirke%5B%5D=charlottenburg-wilmersdorf-charlottenburg&bezirke%5B%5D=friedrichshain-kreuzberg&bezirke%5B%5D=friedrichshain-kreuzberg-friedrichshain&bezirke%5B%5D=friedrichshain-kreuzberg-kreuzberg&bezirke%5B%5D=pankow&bezirke%5B%5D=pankow-prenzlauer-berg&bezirke%5B%5D=tempelhof-schoeneberg-schoeneberg&objekttyp%5B%5D=wohnung&gesamtmiete_von=&gesamtmiete_bis=&gesamtflaeche_von=&gesamtflaeche_bis=&zimmer_von=&zimmer_bis=&keinwbs=1&sort-by=recent/", ""},
+	{"Core Immobilienmanagement", "https://www.core-berlin.de/de/vermietung", ""},
+	{"Heimstaden", "https://portal.immobilienscout24.de/ergebnisliste/92830022", ""},
+	{"DPF", "https://www.dpfonline.de/interessenten/immobilien/", ""},
 }
 
 type Website struct {
