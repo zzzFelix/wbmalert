@@ -1,0 +1,9 @@
+{
+    "interval": 45,
+    "websites": [
+        {
+            "name": "WBM",
+            "url": "https://www.wbm.de/wohnungen-berlin/angebote/"
+        }
+    ]
+}
