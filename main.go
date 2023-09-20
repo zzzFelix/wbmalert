@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -47,24 +48,26 @@ func initializeWebsites() {
 }
 
 func createInitialSnapshot(website Website) Website {
-	content := getWebsiteAsString(website)
-	website.snapshot = content
+	content, error := getWebsiteAsString(website)
+	if error == nil {
+		website.snapshot = content
+	}
 	return website
 }
 
-func getWebsiteAsString(website Website) string {
+func getWebsiteAsString(website Website) (string, error) {
 	resp, err := http.Get(website.url)
 	if err != nil {
 		fmt.Println(err)
 		fmt.Println("An error occurred! The website could not be reached!")
-		return "Error"
+		return "Error", errors.New("The website could not be reached")
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	content := string(body[:])
 	content = sanitizeHtml(content)
 	content = removeAllWhitespace(content)
-	return content
+	return content, nil
 }
 
 func removeAllWhitespace(str string) string {
@@ -77,8 +80,10 @@ func removeAllWhitespace(str string) string {
 }
 
 func checkWebsite(website Website) Website {
-	content := getWebsiteAsString(website)
-
+	content, error := getWebsiteAsString(website)
+	if error != nil {
+		return website
+	}
 	if website.snapshot != content {
 		fmt.Println("========= " + website.name + " =========")
 		fmt.Println("Content changed: " + website.url)
