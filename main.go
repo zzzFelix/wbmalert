@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -88,7 +87,7 @@ func printContentChangeMsg(website Website) {
 }
 
 func goToSleep() {
-	fmt.Printf("Going to sleep for %s seconds", strconv.FormatInt(int64(interval), 10))
+	log.Printf("Going to sleep for %s seconds", strconv.FormatInt(int64(interval), 10))
 	log.Println()
 	time.Sleep(time.Duration(interval) * time.Second)
 }
