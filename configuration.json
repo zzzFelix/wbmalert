@@ -1,5 +1,5 @@
 {
-    "interval": 45,
+    "interval": 1,
     "websites": [
         {
             "name": "WBM",
@@ -48,6 +48,18 @@
         {
             "name": "Vorwärts eG",
             "url": "https://www.wg-vorwaerts.de/wohnungssuche/"
+        },
+        {
+            "name": "WBG Zentrum eG",
+            "url": "https://www.wbg-zentrum.de/wohnen/wohnungsangebot-2/wohnungsangebot/"
+        },
+        {
+            "name": "Bremer Höhe eG",
+            "url": "https://www.bremer-hoehe.de/Vermietung:_:90.html?sub=1"
+        },
+        {
+            "name": "1892 eG",
+            "url": "https://hpm2.immosolve.eu/immosolve_presentation/pub/modern/2145111/HP/immo.jsp"
         }
     ]
 }
