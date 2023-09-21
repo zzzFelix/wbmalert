@@ -4,7 +4,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -82,6 +81,6 @@ func printContentChangeMsg(website *website) {
 }
 
 func goToSleep() {
-	log.Printf("Going to sleep for %s seconds", strconv.FormatInt(int64(interval), 10))
+	log.Printf("Going to sleep for %d seconds", interval)
 	time.Sleep(time.Duration(interval) * time.Second)
 }
