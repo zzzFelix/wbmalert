@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -46,15 +47,15 @@ func createInitialSnapshot(website Website) Website {
 	if error == nil {
 		website.Snapshot = content
 	}
-	fmt.Println("Created initial snapshot for " + website.Name)
+	log.Println("Created initial snapshot for " + website.Name)
 	return website
 }
 
 func getWebsiteAsString(website Website) (string, error) {
 	resp, err := http.Get(website.Url)
 	if err != nil {
-		fmt.Println(err)
-		fmt.Println("An error occurred! The website could not be reached!")
+		log.Println(err)
+		log.Println("An error occurred! The website could not be reached!")
 		return "Error", errors.New("The website could not be reached")
 	}
 	defer resp.Body.Close()
@@ -74,20 +75,20 @@ func checkWebsite(website Website) Website {
 		printContentChangeMsg(website)
 		playSound()
 	} else {
-		fmt.Println("No changes for " + website.Name)
+		log.Println("No changes for " + website.Name)
 	}
 
 	return website
 }
 
 func printContentChangeMsg(website Website) {
-	fmt.Println("========= " + website.Name + " =========")
-	fmt.Println("Content changed: " + website.Url)
-	fmt.Println("====================" + strings.Repeat("=", len(website.Name)))
+	log.Println("========= " + website.Name + " =========")
+	log.Println("Content changed: " + website.Url)
+	log.Println("====================" + strings.Repeat("=", len(website.Name)))
 }
 
 func goToSleep() {
 	fmt.Printf("Going to sleep for %s seconds", strconv.FormatInt(int64(interval), 10))
-	fmt.Println()
+	log.Println()
 	time.Sleep(time.Duration(interval) * time.Second)
 }

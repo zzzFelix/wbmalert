@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"fmt"
+	"log"
 	"time"
 
 	"github.com/faiface/beep"
@@ -18,7 +18,7 @@ var staticAssets embed.FS
 func playSound() {
 	f, err := staticAssets.Open("success.mp3")
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	streamer, format, err := mp3.Decode(f)
@@ -27,7 +27,7 @@ func playSound() {
 	if !soundInitialized {
 		err = speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 		soundInitialized = true
 	}
