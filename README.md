@@ -14,4 +14,5 @@ Go. Any version is probably fine. I use `1.21.0`.
 - Clone the repo
 - Edit the `websites` slice to contain your own links. The third property can be empty; it's a placeholder for the snapshot and will be overwritten on startup.
 - Optionally adjust the interval
-- Run the script using `go run main.go`
+- Install the program `go install`
+- Run the program `wbm-alert -c ~/path/to/configuration.json`
