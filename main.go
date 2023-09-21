@@ -25,7 +25,7 @@ func main() {
 
 	for {
 		for i := 0; i < len(websites); i++ {
-			checkWebsite(websites[i])
+			checkWebsite(&websites[i])
 		}
 		goToSleep()
 	}
@@ -61,8 +61,8 @@ func getWebsiteAsString(website *website) (string, error) {
 	return content, nil
 }
 
-func checkWebsite(website website) {
-	content, error := getWebsiteAsString(&website)
+func checkWebsite(website *website) {
+	content, error := getWebsiteAsString(website)
 	if error != nil {
 		return
 	}
@@ -75,7 +75,7 @@ func checkWebsite(website website) {
 	}
 }
 
-func printContentChangeMsg(website website) {
+func printContentChangeMsg(website *website) {
 	log.Println("========= " + website.Name + " =========")
 	log.Println("Content changed: " + website.Url)
 	log.Println("====================" + strings.Repeat("=", len(website.Name)))
