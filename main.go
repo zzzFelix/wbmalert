@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"io"
 	"log"
 	"net/http"
@@ -26,7 +25,7 @@ func main() {
 
 	for {
 		for i := 0; i < len(websites); i++ {
-			websites[i] = checkWebsite(websites[i])
+			checkWebsite(websites[i])
 		}
 		goToSleep()
 	}
@@ -37,25 +36,23 @@ func initializeWebsites(configuration configuration) {
 	interval = configuration.Interval
 
 	for i := 0; i < len(websites); i++ {
-		websites[i] = createInitialSnapshot(websites[i])
+		createInitialSnapshot(&websites[i])
 	}
 }
 
-func createInitialSnapshot(website website) website {
+func createInitialSnapshot(website *website) {
 	content, error := getWebsiteAsString(website)
 	if error == nil {
 		website.Snapshot = content
+		log.Println("Created initial snapshot for " + website.Name)
 	}
-	log.Println("Created initial snapshot for " + website.Name)
-	return website
 }
 
-func getWebsiteAsString(website website) (string, error) {
+func getWebsiteAsString(website *website) (string, error) {
 	resp, err := http.Get(website.Url)
 	if err != nil {
 		log.Println(err)
-		log.Println("An error occurred! The website could not be reached!")
-		return "Error", errors.New("The website could not be reached")
+		return "Error", err
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
@@ -64,10 +61,10 @@ func getWebsiteAsString(website website) (string, error) {
 	return content, nil
 }
 
-func checkWebsite(website website) website {
-	content, error := getWebsiteAsString(website)
+func checkWebsite(website website) {
+	content, error := getWebsiteAsString(&website)
 	if error != nil {
-		return website
+		return
 	}
 	if website.Snapshot != content {
 		website.Snapshot = content
@@ -76,8 +73,6 @@ func checkWebsite(website website) website {
 	} else {
 		log.Println("No changes for " + website.Name)
 	}
-
-	return website
 }
 
 func printContentChangeMsg(website website) {

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"io"
+	"log"
 	"os"
 )
 
@@ -18,7 +19,7 @@ func readConfiguration() configuration {
 
 	jsonFile, err := os.Open(*cFlag)
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	byteValue, _ := io.ReadAll(jsonFile)
 
