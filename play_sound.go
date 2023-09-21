@@ -1,8 +1,8 @@
 package main
 
 import (
+	"embed"
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/faiface/beep"
@@ -12,8 +12,11 @@ import (
 
 var soundInitialized = false
 
+//go:embed success.mp3
+var staticAssets embed.FS
+
 func playSound() {
-	f, err := os.Open("success.mp3")
+	f, err := staticAssets.Open("success.mp3")
 	if err != nil {
 		fmt.Println(err)
 	}
