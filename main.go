@@ -37,16 +37,17 @@ func initializeWebsites(configuration Configuration) {
 	interval = configuration.Interval
 
 	for i := 0; i < len(websites); i++ {
-		createInitialSnapshot(websites[i])
+		websites[i] = createInitialSnapshot(websites[i])
 	}
 }
 
-func createInitialSnapshot(website Website) {
+func createInitialSnapshot(website Website) Website {
 	content, error := getWebsiteAsString(website)
 	if error == nil {
 		website.Snapshot = content
 	}
 	fmt.Println("Created initial snapshot for " + website.Name)
+	return website
 }
 
 func getWebsiteAsString(website Website) (string, error) {
