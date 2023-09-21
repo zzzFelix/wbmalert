@@ -88,6 +88,5 @@ func printContentChangeMsg(website Website) {
 
 func goToSleep() {
 	log.Printf("Going to sleep for %s seconds", strconv.FormatInt(int64(interval), 10))
-	log.Println()
 	time.Sleep(time.Duration(interval) * time.Second)
 }
