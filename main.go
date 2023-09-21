@@ -10,14 +10,14 @@ import (
 	"time"
 )
 
-type Website struct {
+type website struct {
 	Name     string
 	Url      string
 	Snapshot string
 }
 
 var interval = 0 // in seconds
-var websites = []Website{}
+var websites = []website{}
 
 func main() {
 	configuration := readConfiguration()
@@ -32,7 +32,7 @@ func main() {
 	}
 }
 
-func initializeWebsites(configuration Configuration) {
+func initializeWebsites(configuration configuration) {
 	websites = configuration.Websites
 	interval = configuration.Interval
 
@@ -41,7 +41,7 @@ func initializeWebsites(configuration Configuration) {
 	}
 }
 
-func createInitialSnapshot(website Website) Website {
+func createInitialSnapshot(website website) website {
 	content, error := getWebsiteAsString(website)
 	if error == nil {
 		website.Snapshot = content
@@ -50,7 +50,7 @@ func createInitialSnapshot(website Website) Website {
 	return website
 }
 
-func getWebsiteAsString(website Website) (string, error) {
+func getWebsiteAsString(website website) (string, error) {
 	resp, err := http.Get(website.Url)
 	if err != nil {
 		log.Println(err)
@@ -64,7 +64,7 @@ func getWebsiteAsString(website Website) (string, error) {
 	return content, nil
 }
 
-func checkWebsite(website Website) Website {
+func checkWebsite(website website) website {
 	content, error := getWebsiteAsString(website)
 	if error != nil {
 		return website
@@ -80,7 +80,7 @@ func checkWebsite(website Website) Website {
 	return website
 }
 
-func printContentChangeMsg(website Website) {
+func printContentChangeMsg(website website) {
 	log.Println("========= " + website.Name + " =========")
 	log.Println("Content changed: " + website.Url)
 	log.Println("====================" + strings.Repeat("=", len(website.Name)))

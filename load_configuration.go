@@ -7,12 +7,12 @@ import (
 	"os"
 )
 
-type Configuration struct {
+type configuration struct {
 	Interval int
-	Websites []Website
+	Websites []website
 }
 
-func readConfiguration() Configuration {
+func readConfiguration() configuration {
 	var cFlag = flag.String("c", "configuration.json", "path to configuration file")
 	flag.Parse()
 
@@ -22,7 +22,7 @@ func readConfiguration() Configuration {
 	}
 	byteValue, _ := io.ReadAll(jsonFile)
 
-	var configuration Configuration
+	var configuration configuration
 	json.Unmarshal(byteValue, &configuration)
 
 	defer jsonFile.Close()
