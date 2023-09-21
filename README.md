@@ -14,5 +14,4 @@ Go. Any version is probably fine. I use `1.21.0`.
 - Clone the repo
 - Adjust `configuration.json`: Edit the `websites` array to contain your own links.
 - Optionally adjust the interval
-- Install the program `go install`
-- Run the program `wbm-alert -c ~/path/to/configuration.json`
+- Build and run the program `go build && ./wbm-alert -c configuration.json`
