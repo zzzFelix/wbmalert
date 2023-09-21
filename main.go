@@ -44,7 +44,7 @@ func initializeWebsites(configuration Configuration) {
 func createInitialSnapshot(website Website) {
 	content, error := getWebsiteAsString(website)
 	if error == nil {
-		updateSnapshot(website, content)
+		website.Snapshot = content
 	}
 	fmt.Println("Created initial snapshot for " + website.Name)
 }
@@ -69,7 +69,7 @@ func checkWebsite(website Website) Website {
 		return website
 	}
 	if website.Snapshot != content {
-		updateSnapshot(website, content)
+		website.Snapshot = content
 		printContentChangeMsg(website)
 		playSound()
 	} else {
@@ -77,10 +77,6 @@ func checkWebsite(website Website) Website {
 	}
 
 	return website
-}
-
-func updateSnapshot(website Website, content string) {
-	website.Snapshot = content
 }
 
 func printContentChangeMsg(website Website) {
