@@ -8,7 +8,7 @@ The snapshot only considers the textual contents of a website. If images, links,
 I used it to monitor real estate websites to be notified of new listings. I was particularly interested in Berlin's state-owned Wohnungsbaugesellschaft Berlin-Mitte (WBM), hence the name `wbm-alert`.
 
 ## Prequisites
-Go. Any version is probably fine. I use `1.21.0`.
+Go. Any version >= `1.16` is probably fine.
 
 ## Get started
 - Clone the repo
