@@ -2,16 +2,9 @@ module github.com/zzzFelix/wbmalert
 
 go 1.21.1
 
-require (
-	github.com/faiface/beep v1.1.0
-	golang.org/x/net v0.14.0 // indirect
-)
-
-require github.com/microcosm-cc/bluemonday v1.0.25
+require github.com/faiface/beep v1.1.0
 
 require (
-	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/gorilla/css v1.0.0 // indirect
 	github.com/hajimehoshi/go-mp3 v0.3.0 // indirect
 	github.com/hajimehoshi/oto v0.7.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
