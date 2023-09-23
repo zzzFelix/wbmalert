@@ -1,6 +1,6 @@
 module github.com/zzzFelix/wbmalert
 
-go 1.21.0
+go 1.18
 
 require (
 	github.com/faiface/beep v1.1.0
