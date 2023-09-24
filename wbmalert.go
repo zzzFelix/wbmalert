@@ -8,14 +8,27 @@ import (
 	"time"
 )
 
+var (
+	client   httpClient
+	interval int
+	websites []website
+)
+
+func init() {
+	client = &http.Client{}
+	interval = 0
+	websites = []website{}
+}
+
+type httpClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
 type website struct {
 	Name     string
 	Url      string
 	Snapshot string
 }
-
-var interval = 0 // in seconds
-var websites = []website{}
 
 func main() {
 	configuration := readConfiguration()
@@ -48,7 +61,8 @@ func createInitialSnapshot(website *website) {
 }
 
 func getWebsiteAsString(website *website) (string, error) {
-	resp, err := http.Get(website.Url)
+	request, err := http.NewRequest(http.MethodGet, website.Url, nil)
+	resp, err := client.Do(request)
 	if err != nil {
 		log.Println(err)
 		return "Error", err
