@@ -7,14 +7,16 @@ import (
 	"testing"
 )
 
-const HTTP_GET_BODY = "<p>Test</p>"
-const WANT = "Test"
+const (
+	HTTP_GET_BODY = "<p>Test</p>"
+	WANT          = "Test"
+)
 
-type MockClient struct {
+type mockClient struct {
 	DoFunc func(req *http.Request) (*http.Response, error)
 }
 
-func (m *MockClient) Do(req *http.Request) (*http.Response, error) {
+func (m *mockClient) Do(req *http.Request) (*http.Response, error) {
 	reader := strings.NewReader(HTTP_GET_BODY)
 	readCloser := io.NopCloser(reader)
 	response := http.Response{
@@ -24,7 +26,7 @@ func (m *MockClient) Do(req *http.Request) (*http.Response, error) {
 }
 
 func TestGetWebsiteAsString(t *testing.T) {
-	client = &MockClient{}
+	client = &mockClient{}
 	website := website{
 		Name:     "Test",
 		Url:      "https://google.com",
