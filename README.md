@@ -15,3 +15,8 @@ Go. Any version >= `1.16` is probably fine.
 - Adjust `configuration.json`: Edit the `websites` array to contain your own links.
 - Optionally adjust the interval
 - Build and run the program `go build && ./wbmalert -c configuration.json`
+
+## Configuration options
+- `name`: A name to identify the website. Does not need to be unique.
+- `url`: Url to make an HTTP GET request to.
+- `regexRemove` (optional): A regular expression. If a match is found, the content will be removed.

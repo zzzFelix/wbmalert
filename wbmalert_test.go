@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	HTTP_GET_BODY = "<p>Test</p>"
+	HTTP_GET_BODY = "<p>Test last update: 01.01.2020 - 14:45</p>"
 	WANT          = "Test"
 )
 
@@ -28,9 +28,10 @@ func (m *mockClient) Do(req *http.Request) (*http.Response, error) {
 func TestGetWebsiteAsString(t *testing.T) {
 	client = &mockClient{}
 	website := website{
-		Name:     "Test",
-		Url:      "https://google.com",
-		Snapshot: "",
+		Name:        "Test",
+		Url:         "https://google.com",
+		Snapshot:    "",
+		RegexRemove: "last update: \\d\\d.\\d\\d.\\d\\d\\d\\d - \\d\\d:\\d\\d",
 	}
 	result, error := getWebsiteAsString(&website)
 	if error != nil {
