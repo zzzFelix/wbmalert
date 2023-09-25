@@ -25,9 +25,10 @@ type httpClient interface {
 }
 
 type website struct {
-	Name     string
-	Url      string
-	Snapshot string
+	Name        string
+	Url         string
+	RegexRemove string
+	Snapshot    string
 }
 
 func main() {
@@ -70,6 +71,7 @@ func getWebsiteAsString(website *website) (string, error) {
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	content := string(body[:])
+	content = removeByRegex(content, website.RegexRemove)
 	content = sanitizeHtml(content)
 	return content, nil
 }
