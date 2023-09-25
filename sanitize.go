@@ -20,7 +20,7 @@ func removeAllWhitespace(str string) string {
 	}, str)
 }
 
-// Uses https://stackoverflow.com/a/64701836
+// See https://stackoverflow.com/a/64701836
 func stripTags(s string) string {
 	var builder strings.Builder
 	builder.Grow(len(s) + utf8.UTFMax)
