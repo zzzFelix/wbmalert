@@ -37,10 +37,11 @@ func main() {
 	ch := make(chan struct{})
 
 	for {
-		for i := 0; i < len(websites); i++ {
+		for i := range websites {
 			go checkWebsite(&websites[i], ch)
 		}
-		for i := 0; i < len(websites); i++ {
+
+		for range websites {
 			<-ch
 		}
 		goToSleep()
@@ -52,14 +53,14 @@ func initializeWebsites(configuration configuration) {
 	websites = configuration.Websites
 	interval = configuration.Interval
 
-	for i := 0; i < len(websites); i++ {
+	for i := range websites {
 		go createInitialSnapshot(&websites[i], ch)
-
 	}
 
-	for i := 0; i < len(websites); i++ {
+	for range websites {
 		<-ch
 	}
+
 	goToSleep()
 }
 
