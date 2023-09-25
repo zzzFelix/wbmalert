@@ -34,31 +34,42 @@ type website struct {
 func main() {
 	configuration := readConfiguration()
 	initializeWebsites(configuration)
-	goToSleep()
+	ch := make(chan struct{})
 
 	for {
 		for i := 0; i < len(websites); i++ {
-			checkWebsite(&websites[i])
+			go checkWebsite(&websites[i], ch)
+		}
+		for i := 0; i < len(websites); i++ {
+			<-ch
 		}
 		goToSleep()
 	}
 }
 
 func initializeWebsites(configuration configuration) {
+	ch := make(chan struct{})
 	websites = configuration.Websites
 	interval = configuration.Interval
 
 	for i := 0; i < len(websites); i++ {
-		createInitialSnapshot(&websites[i])
+		go createInitialSnapshot(&websites[i], ch)
+
 	}
+
+	for i := 0; i < len(websites); i++ {
+		<-ch
+	}
+	goToSleep()
 }
 
-func createInitialSnapshot(website *website) {
+func createInitialSnapshot(website *website, ch chan struct{}) {
 	content, error := getWebsiteAsString(website)
 	if error == nil {
 		website.Snapshot = content
 		log.Println("Created initial snapshot for " + website.Name)
 	}
+	ch <- struct{}{}
 }
 
 func getWebsiteAsString(website *website) (string, error) {
@@ -76,18 +87,20 @@ func getWebsiteAsString(website *website) (string, error) {
 	return content, nil
 }
 
-func checkWebsite(website *website) {
+func checkWebsite(website *website, ch chan struct{}) {
 	content, error := getWebsiteAsString(website)
-	if error != nil {
-		return
+
+	if error == nil {
+		if website.Snapshot != content {
+			website.Snapshot = content
+			printContentChangeMsg(website)
+			playSound()
+		} else {
+			log.Println("No changes for " + website.Name)
+		}
 	}
-	if website.Snapshot != content {
-		website.Snapshot = content
-		printContentChangeMsg(website)
-		playSound()
-	} else {
-		log.Println("No changes for " + website.Name)
-	}
+
+	ch <- struct{}{}
 }
 
 func printContentChangeMsg(website *website) {
