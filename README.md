@@ -14,7 +14,7 @@ Go >= `1.21`, older versions may work but aren't tested.
 - `websites`: Array of websites to make requests to.
     - `name`: Name to identify the website. Does not need to be unique.
     - `url`: Url to make HTTP GET request to.
-    - `regexRemove` (optional): A regular expression. Removes every substring that matches.
+    - `regexpRemove` (optional): A regular expression. Removes every substring that matches.
 
 ## What is it good for?
 I used it to monitor real estate websites to be notified of new listings. I was particularly interested in Berlin's state-owned Wohnungsbaugesellschaft Berlin-Mitte (WBM), hence the name `wbm-alert`.
