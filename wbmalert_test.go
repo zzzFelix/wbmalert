@@ -28,10 +28,10 @@ func (m *mockClient) Do(req *http.Request) (*http.Response, error) {
 func TestGetWebsiteAsString(t *testing.T) {
 	client = &mockClient{}
 	website := website{
-		Name:        "Test",
-		Url:         "https://google.com",
-		Snapshot:    "",
-		RegexRemove: "last update: \\d\\d.\\d\\d.\\d\\d\\d\\d - \\d\\d:\\d\\d",
+		Name:         "Test",
+		Url:          "https://google.com",
+		Snapshot:     "",
+		RegexpRemove: "last update: \\d\\d.\\d\\d.\\d\\d\\d\\d - \\d\\d:\\d\\d",
 	}
 	result, error := getWebsiteAsString(&website)
 	if error != nil {

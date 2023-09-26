@@ -2,10 +2,10 @@ package main
 
 import "regexp"
 
-func removeByRegex(input string, regex string) string {
-	if regex == "" {
+func removeByRegexp(input string, pattern string) string {
+	if pattern == "" {
 		return input
 	}
-	regexpPattern := regexp.MustCompile(regex)
+	regexpPattern := regexp.MustCompile(pattern)
 	return regexpPattern.ReplaceAllString(input, "")
 }
