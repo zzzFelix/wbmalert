@@ -2,7 +2,8 @@
 This script creates (text) snapshots for a given list of websites. A request to each website is made every 30 seconds. If the contents of the website have changed, a notification sound is played.
 
 ## Prequisites
-Go >= `1.21`, older versions may work but aren't tested.
+ - Go >= `1.21`, older versions may work but aren't tested.
+ - Sound only plays on macOS. PRs welcome!
 
 ## Usage
 - Create a `configuration.json` file, use the one from this repository as a template. Also see [configuration options](#configuration-options).
