@@ -8,5 +8,5 @@ import (
 )
 
 func playSound() {
-	log.Println("Sound not supported for OS %s", runtime.GOOS)
+	log.Printf("Sound not supported for OS %s", runtime.GOOS)
 }
