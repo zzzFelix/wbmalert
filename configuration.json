@@ -7,7 +7,7 @@
         },
         {
             "name": "Gesobau",
-            "url": "https://www.gesobau.de/mieten/wohnungssuche/"
+            "url": "https://www.gesobau.de/mieten/wohnungssuche/?tx_solr[filter][]=region:/Mitte/&tx_solr[filter][]=region:/Pankow/"
         },
         {
             "name": "Gewobag",
@@ -20,7 +20,7 @@
         },
         {
             "name": "Degewo",
-            "url": "https://immosuche.degewo.de/de/search?size=10&page=1&property_type_id=1&categories%5B%5D=1&lat=&lon=&area=&address%5Bstreet%5D=&address%5Bcity%5D=&address%5Bzipcode%5D=&address%5Bdistrict%5D=&district=46%2C+28%2C+71&property_number=&price_switch=true&price_radio=null&price_from=&price_to=&qm_radio=null&qm_from=&qm_to=&rooms_radio=null&rooms_from=&rooms_to=&wbs_required=&order=rent_total_without_vat_asc"
+            "url": "https://immosuche.degewo.de/de/search?size=10&page=1&property_type_id=1&categories%5B%5D=1&lat=&lon=&area=&address%5Bstreet%5D=&address%5Bcity%5D=&address%5Bzipcode%5D=&address%5Bdistrict%5D=&district=46%2C+28%2C+71&property_number=&price_switch=true&price_radio=null&price_from=&price_to=&qm_radio=null&qm_from=&qm_to=&rooms_radio=null&rooms_from=&rooms_to=&wbs_required=false&order=rent_total_without_vat_asc"
         },
         {
             "name": "Berlinovo",
