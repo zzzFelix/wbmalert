@@ -65,23 +65,30 @@ func initializeWebsites(configuration configuration) {
 }
 
 func createInitialSnapshot(website *website, ch chan struct{}) {
-	content, error := getWebsiteAsString(website)
-	if error == nil {
+	content, err := getWebsiteAsString(website)
+	if err == nil {
 		website.Snapshot = content
 		log.Println("Created initial snapshot for " + website.Name)
+	} else {
+		log.Println(err)
 	}
 	ch <- struct{}{}
 }
 
 func getWebsiteAsString(website *website) (string, error) {
 	request, err := http.NewRequest(http.MethodGet, website.Url, nil)
+	if err != nil {
+		return "Error", err
+	}
 	resp, err := client.Do(request)
 	if err != nil {
-		log.Println(err)
 		return "Error", err
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "Error", err
+	}
 	content := string(body[:])
 	content = removeByRegexp(content, website.RegexpRemove)
 	content = sanitizeHtml(content)
@@ -89,9 +96,9 @@ func getWebsiteAsString(website *website) (string, error) {
 }
 
 func checkWebsite(website *website, ch chan struct{}) {
-	content, error := getWebsiteAsString(website)
+	content, err := getWebsiteAsString(website)
 
-	if error == nil {
+	if err == nil {
 		if website.Snapshot != content {
 			website.Snapshot = content
 			printContentChangeMsg(website)
@@ -99,6 +106,8 @@ func checkWebsite(website *website, ch chan struct{}) {
 		} else {
 			log.Println("No changes for " + website.Name)
 		}
+	} else {
+		log.Println(err)
 	}
 
 	ch <- struct{}{}
