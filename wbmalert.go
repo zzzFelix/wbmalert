@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -34,37 +35,34 @@ type website struct {
 func main() {
 	configuration := readConfiguration()
 	initializeWebsites(configuration)
-	ch := make(chan struct{})
 
 	for {
+		var wg sync.WaitGroup
 		for i := range websites {
-			go checkWebsite(&websites[i], ch)
+			wg.Add(1)
+			go checkWebsite(&websites[i], &wg)
 		}
 
-		for range websites {
-			<-ch
-		}
+		wg.Wait()
 		goToSleep()
 	}
 }
 
 func initializeWebsites(configuration configuration) {
-	ch := make(chan struct{})
+	var wg sync.WaitGroup
 	websites = configuration.Websites
 	interval = configuration.Interval
 
 	for i := range websites {
-		go createInitialSnapshot(&websites[i], ch)
+		wg.Add(1)
+		go createInitialSnapshot(&websites[i], &wg)
 	}
 
-	for range websites {
-		<-ch
-	}
-
+	wg.Wait()
 	goToSleep()
 }
 
-func createInitialSnapshot(website *website, ch chan struct{}) {
+func createInitialSnapshot(website *website, wg *sync.WaitGroup) {
 	content, err := getWebsiteAsString(website)
 	if err == nil {
 		website.Snapshot = content
@@ -72,7 +70,7 @@ func createInitialSnapshot(website *website, ch chan struct{}) {
 	} else {
 		log.Println(err)
 	}
-	ch <- struct{}{}
+	defer wg.Done()
 }
 
 func getWebsiteAsString(website *website) (string, error) {
@@ -95,7 +93,7 @@ func getWebsiteAsString(website *website) (string, error) {
 	return content, nil
 }
 
-func checkWebsite(website *website, ch chan struct{}) {
+func checkWebsite(website *website, wg *sync.WaitGroup) {
 	content, err := getWebsiteAsString(website)
 
 	if err == nil {
@@ -110,7 +108,7 @@ func checkWebsite(website *website, ch chan struct{}) {
 		log.Println(err)
 	}
 
-	ch <- struct{}{}
+	defer wg.Done()
 }
 
 func printContentChangeMsg(website *website) {
