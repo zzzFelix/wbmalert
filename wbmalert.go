@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -66,26 +67,30 @@ func createInitialSnapshot(website *website, wg *sync.WaitGroup) {
 	content, err := getWebsiteAsString(website)
 	if err == nil {
 		website.Snapshot = content
-		log.Println("Created initial snapshot for " + website.Name)
+		log.Println("[INFO]", "Created initial snapshot for "+website.Name)
 	} else {
-		log.Println(err)
+		log.Println("[ERROR]", website.Name, err)
 	}
 	defer wg.Done()
 }
 
 func getWebsiteAsString(website *website) (string, error) {
 	request, err := http.NewRequest(http.MethodGet, website.Url, nil)
+	errorText := fmt.Sprintf("Error fetching %s", website.Name)
 	if err != nil {
-		return "Error", err
+		return errorText, err
 	}
 	resp, err := client.Do(request)
 	if err != nil {
-		return "Error", err
+		return errorText, err
+	}
+	if resp.StatusCode != 200 {
+		return errorText, fmt.Errorf("http status code error occured : %d", resp.StatusCode)
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return "Error", err
+		return errorText, err
 	}
 	content := string(body[:])
 	content = removeByRegexp(content, website.RegexpRemove)
@@ -102,22 +107,22 @@ func checkWebsite(website *website, wg *sync.WaitGroup) {
 			printContentChangeMsg(website)
 			playSound()
 		} else {
-			log.Println("No changes for " + website.Name)
+			log.Println("[INFO]", "No changes for "+website.Name)
 		}
 	} else {
-		log.Println(err)
+		log.Println("[ERROR]", website.Name, err)
 	}
 
 	defer wg.Done()
 }
 
 func printContentChangeMsg(website *website) {
-	log.Println("========= " + website.Name + " =========")
-	log.Println("Content changed: " + website.Url)
-	log.Println("====================" + strings.Repeat("=", len(website.Name)))
+	log.Println("[INFO]", "========= "+website.Name+" =========")
+	log.Println("[INFO]", "Content changed: "+website.Url)
+	log.Println("[INFO]", "===================="+strings.Repeat("=", len(website.Name)))
 }
 
 func goToSleep() {
-	log.Printf("Going to sleep for %d seconds", interval)
+	log.Printf("[INFO] Going to sleep for %d seconds", interval)
 	time.Sleep(time.Duration(interval) * time.Second)
 }
