@@ -20,7 +20,8 @@ func (m *mockClient) Do(req *http.Request) (*http.Response, error) {
 	reader := strings.NewReader(HTTP_GET_BODY)
 	readCloser := io.NopCloser(reader)
 	response := http.Response{
-		Body: readCloser,
+		Body:       readCloser,
+		StatusCode: 200,
 	}
 	return &response, nil
 }
