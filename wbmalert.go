@@ -84,7 +84,7 @@ func getWebsiteAsString(website *website) (string, error) {
 	if err != nil {
 		return errorText, err
 	}
-	if resp.StatusCode != 200 {
+	if resp.StatusCode >= 400 {
 		return errorText, fmt.Errorf("http status code error occured : %d", resp.StatusCode)
 	}
 	defer resp.Body.Close()
