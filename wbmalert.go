@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"net/http"
 	"strings"
 	"sync"
@@ -67,9 +67,9 @@ func createInitialSnapshot(website *website, wg *sync.WaitGroup) {
 	content, err := getWebsiteAsString(website)
 	if err == nil {
 		website.Snapshot = content
-		log.Println("[INFO]", "Created initial snapshot for "+website.Name)
+		slog.Info("Created initial snapshot for", "website", website.Name)
 	} else {
-		log.Println("[ERROR]", website.Name, err)
+		slog.Error("Can't create snapshot for", "website", website.Name, "error", err)
 	}
 	defer wg.Done()
 }
@@ -107,22 +107,22 @@ func checkWebsite(website *website, wg *sync.WaitGroup) {
 			printContentChangeMsg(website)
 			playSound()
 		} else {
-			log.Println("[INFO]", "No changes for "+website.Name)
+			slog.Info("No changes for", "website", website.Name)
 		}
 	} else {
-		log.Println("[ERROR]", website.Name, err)
+		slog.Error("website", website.Name, "error", err)
 	}
 
 	defer wg.Done()
 }
 
 func printContentChangeMsg(website *website) {
-	log.Println("[INFO]", "========= "+website.Name+" =========")
-	log.Println("[INFO]", "Content changed: "+website.Url)
-	log.Println("[INFO]", "===================="+strings.Repeat("=", len(website.Name)))
+	slog.Info("========= " + website.Name + " =========")
+	slog.Info("Content changed: " + website.Url)
+	slog.Info("====================" + strings.Repeat("=", len(website.Name)))
 }
 
 func goToSleep() {
-	log.Printf("[INFO] Going to sleep for %d seconds", interval)
+	slog.Info("Going to sleep for", "seconds", interval)
 	time.Sleep(time.Duration(interval) * time.Second)
 }
