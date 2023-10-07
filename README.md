@@ -3,7 +3,6 @@ This script creates (text) snapshots for a given list of websites. A request to 
 
 ## Prequisites
  - Go >= `1.21`, older versions may work but aren't tested.
- - Sound only plays on macOS. PRs welcome!
 
 ## Usage
 - Create a `configuration.json` file, use the one from this repository as a template. Also see [configuration options](#configuration-options).
@@ -11,7 +10,8 @@ This script creates (text) snapshots for a given list of websites. A request to 
 - Run the script and provide the path to your configuration: `wbmalert -c configuration.json`
 
 ## Configuration options
-- `interval`: Time in seconds between requests
+- `interval`: Time in seconds between requests.
+- `beeps`: Number of times beep sound is played on a success event. Depending on OS, beep sound varies in annoyance ([see beeep library](https://github.com/gen2brain/beeep)). On macOS it is a gentle knock sound which is why the default value is 3.
 - `websites`: Array of websites to make requests to.
     - `name`: Name to identify the website. Does not need to be unique.
     - `url`: Url to make HTTP GET request to.
