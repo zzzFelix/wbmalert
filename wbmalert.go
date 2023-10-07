@@ -13,12 +13,14 @@ import (
 var (
 	client   httpClient
 	interval int
+	beeps    int
 	websites []website
 )
 
 func init() {
 	client = &http.Client{}
 	interval = 0
+	beeps = 0
 	websites = []website{}
 }
 
@@ -53,6 +55,7 @@ func initializeWebsites(configuration configuration) {
 	var wg sync.WaitGroup
 	websites = configuration.Websites
 	interval = configuration.Interval
+	beeps = configuration.Beeps
 
 	for i := range websites {
 		wg.Add(1)
@@ -105,7 +108,7 @@ func checkWebsite(website *website, wg *sync.WaitGroup) {
 		if website.Snapshot != content {
 			website.Snapshot = content
 			printContentChangeMsg(website)
-			playSound()
+			playBeep(beeps)
 		} else {
 			slog.Info("No changes for", "website", website.Name)
 		}

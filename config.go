@@ -10,6 +10,7 @@ import (
 
 type configuration struct {
 	Interval int
+	Beeps    int
 	Websites []website
 }
 

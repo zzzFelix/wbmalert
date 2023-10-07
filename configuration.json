@@ -1,5 +1,6 @@
 {
     "interval": 30,
+    "beeps": 3,
     "websites": [
         {
             "name": "WBM",
